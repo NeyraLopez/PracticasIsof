@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Carrera</title>
+
+   <link rel="stylesheet" href="../css/stylesFormularios.css">
+    
+</head>
+<body>
+
+    <h1>Lista de Carrera</h1>
+
+    <button class="btn-agregar" onclick="mostrarModalAgregar()">Agregar Nueva Carrera</button>
+
+    <table id="tablaAlumnos">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>nombreCarrera de la Carrera</th>
+                <th>Acciones</th>
+                
+            </tr>
+        </thead>
+        <tbody id="tablaAlumnosBody">
+        </tbody>
+    </table>
+
+
+    <div class="paginacion" id="controlesPaginacion"></div>
+    
+    <div class="registros-por-pagina">
+        <label>Registros por página: </label>
+        <select id="registrosPorPagina" onchange="cambiarRegistrosPorPagina(this.value)">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+        </select>
+    </div>
+
+    <!-- Modal para Agregar/Editar -->
+    <div id="modalFormulario" class="modal">
+        <div class="modal-contenido">
+            <h2 id="modalTitulo">Agregar Nueva Carrera</h2>
+            <form id="formularioAlumno" onsubmit="guardarAlumno(event)">
+               
+                <div class="form-group">
+                    <label for="idEditar">Id:</label>
+                    <input type="text" id="idEditar" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombreCarrera">Carrera:</label>
+                    <input type="text" id="nombreCarrera" required>
+                </div>
+                
+                <div class="botones-accion">
+                    <button type="submit">Guardar</button>
+                    <button type="button" onclick="cerrarModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--
+    <script>
+        // Obtener los datos del archivo PHP (que devuelve JSON)
+        fetch('../php/listar.php')
+            .then(response => response.json())
+            .then(data => {
+                const tablaBody = document.querySelector('tbody');
+                if (data.length === 0) {
+                  tablaBody.innerHTML = "<tr><td colspan='3'>No se encontraron registros.</td></tr>";
+             } else {
+                 // ... (código para llenar la tabla)
+  
+                data.forEach(alumno => {
+                    const row = tablaBody.insertRow();
+                    const matriculaCell = row.insertCell();
+                    const nombreCarreraCell = row.insertCell();
+                    const direccionCell = row.insertCell();
+
+                    matriculaCell.textContent = alumno.matricula;
+                    nombreCarreraCell.textContent = alumno.nombreCarrera;
+                    direccionCell.textContent = alumno.direccion;
+                });
+            } 
+            });
+    </script>
+-->
+    <script src="../js/scriptsCarreras.js"></script>
+</body>
+</html>

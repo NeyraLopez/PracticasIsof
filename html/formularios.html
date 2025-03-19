@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="../css/stylesFormularios.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Formulario de Registro</h2>
+        <form action="../php/alumnos/grabar.php" method="POST" onsubmit="return validarFormulario()">
+        
+            <div class="form-group">
+                <label for="matricula">Matrícula:</label>
+                <input type="text" id="matricula" name="matricula" required maxlength="10">
+            </div>
+            
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required pattern="[A-Za-z ]+">
+            </div>
+            
+            <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required>
+            </div>
+            
+            <input type="submit" value="Enviar">
+        </form>
+
+    </div>
+    <h2>HTML Forms</h2>
+
+    
+
+    <p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
+<script src="../js/scriptsAlumnos.js"></script>
+</body>
+</html>
