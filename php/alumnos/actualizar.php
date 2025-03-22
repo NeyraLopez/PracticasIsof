@@ -17,13 +17,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         try {
             $stmt = $conn->prepare("UPDATE tblalumnos SET 
                 nombre = ?, 
-                direccion = ? 
+                direccion = ? ,
+                idcarrera = ?
                 WHERE matricula = ?");
+
             
-            $stmt->bind_param("sss", 
+            $stmt->bind_param("ssss", 
                 $data['nombre'],
                 $data['direccion'],
-                $data['matricula']
+                $data['matricula'],
+                $data['idcarrera']
             );
             
             if ($stmt->execute()) {

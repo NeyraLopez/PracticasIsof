@@ -14,7 +14,10 @@ if (empty($matricula)) {
 //var_dump($matricula);
 
 // Preparar la consulta SQL para obtener el alumno
-$sql = "SELECT matricula, nombre, direccion FROM tblalumnos WHERE matricula = ?";
+$sql = "SELECT matricula, nombre, direccion, nombreCarrera as Carrera 
+FROM tblalumnos 
+INNER JOIN tblcarreras ON tblalumnos.idCarrera = tblcarreras.id
+WHERE matricula = ?";
 
 // Usar una declaración preparada
 $stmt = $conn->prepare($sql);

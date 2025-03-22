@@ -47,6 +47,7 @@ function validarFormulario() {
                          <td>${alumno.matricula}</td>
                          <td>${alumno.nombre}</td>
                          <td>${alumno.direccion}</td>
+                         <td>${alumno.carrera}</td>
                          <td>
                              <button onclick="editarAlumno('${alumno.matricula}')">Modificar</button>
                              <button onclick="eliminarAlumno('${alumno.matricula}')">Borrar</button>
@@ -67,7 +68,11 @@ function validarFormulario() {
              document.getElementById('matriculaEditar').value = data.matricula;
              document.getElementById('nombre').value = data.nombre;
              document.getElementById('direccion').value = data.direccion;
+             document.getElementById('carrera').value = data.carrera;
              document.getElementById('modalFormulario').style.display = 'flex';
+             cargarCarreras();//Cargar carreras dentro del modal
+             
+             
          });
  }
 
@@ -87,6 +92,9 @@ function validarFormulario() {
      document.getElementById('modalTitulo').textContent = 'Agregar Nuevo Alumno';
      document.getElementById('formularioAlumno').reset();
      document.getElementById('modalFormulario').style.display = 'flex';
+     //document.getElementById('matriculaEditar').value = '';
+     cargarCarreras();//Cargar carreras dentro del modal
+     
  }
 
  // Cerrar modal
@@ -102,7 +110,8 @@ function validarFormulario() {
        //  matricula: editando ? document.getElementById('matriculaEditar').value : null,
          matricula: document.getElementById('matriculaEditar').value ,
          nombre: document.getElementById('nombre').value,
-         direccion: document.getElementById('direccion').value
+         direccion: document.getElementById('direccion').value,
+         idcarrera: document.getElementById('carrera').value
      };
 
      const url = editando ? '../php/alumnos/actualizar.php' : '../php/alumnos/grabar.php';
@@ -123,6 +132,8 @@ function validarFormulario() {
 
  // Cargar tabla al iniciar
  cargarTabla();
+ 
+ 
 
  // Cerrar modal al hacer click fuera
 /*  window.onclick = function(event) {
@@ -146,6 +157,26 @@ function validarFormulario() {
              actualizarControlesPaginacion();
          });
  }
+ function cargarCarreras() {
+    fetch('../php/carreras/listar.php')
+        .then(response => response.json())
+        .then(data => {
+
+            const selectCarreras = document.getElementById('carrera');
+
+            // Clear existing options (except the default one if present).
+             while (selectCarreras.options.length > 1) {
+                 selectCarreras.remove(1);
+              }
+            //Selecciona el id carrera del modal
+            data.forEach(carrera => {
+                const option = document.createElement('option');
+                option.value = carrera.id;
+                option.textContent = carrera.nombreCarrera;
+                selectCarreras.appendChild(option);
+            });
+        });   
+}
 
  // Renderizar tabla con paginación
  function renderizarTabla() {
@@ -165,6 +196,7 @@ function validarFormulario() {
                  <td>${alumno.matricula}</td>
                  <td>${alumno.nombre}</td>
                  <td>${alumno.direccion}</td>
+                 <td>${alumno.carrera}</td>
                  <td>
                      <button class="btn-modificar" onclick="editarAlumno('${alumno.matricula}')">Modificar</button>
                      <button class="btn-borrar" onclick="eliminarAlumno('${alumno.matricula}')">Borrar</button>

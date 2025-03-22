@@ -1,5 +1,4 @@
 <?php
-
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
@@ -18,12 +17,13 @@ if (!isset($data['matricula']) || !isset($data['nombre']) || !isset($data['direc
     exit();
 }
         try {
-            $stmt = $conn->prepare("INSERT INTO tblalumnos (matricula,nombre,direccion) VALUES(?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO tblalumnos (matricula,nombre,direccion,idCarrera) VALUES(?, ?, ?, ?)");
             
-            $stmt->bind_param("sss", 
+            $stmt->bind_param("ssss", 
                  $data['matricula'],
                 $data['nombre'],
-                $data['direccion']
+                $data['direccion'],
+                $data['idcarrera']  
                 
             );
             
@@ -46,33 +46,3 @@ if (!isset($data['matricula']) || !isset($data['nombre']) || !isset($data['direc
 }
 
 $conn->close();
-
-
-/*
-include 'conexion.php';
-
-//procesar formulario
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    //Limpiar y validar datos
-    $matricula = $conn->real_escape_string($_POST['matricula']);
-    $nombre = $conn->real_escape_string($_POST['nombre']);
-    $direccion = $conn->real_escape_string($_POST['direccion']);
-
-    //Insertar datos
-    $sql = "INSERT INTO tblalumnos (matricula, nombre, direccion)
-    VALUES ('$matricula', '$nombre', '$direccion')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo"<h1>Registro Exitoso!</h1>";
-
-    } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-
-
-}
-
-$conn->close();
-*/
-
-?>
